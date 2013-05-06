@@ -3,8 +3,9 @@
  */
 package com.ivan.nikolov.telnet.server.exceptions;
 
-
 /**
+ * An exception that is thrown when the parameters of a command are not valid.
+ * 
  * @author Ivan Nikolov
  * 
  */

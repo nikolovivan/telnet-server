@@ -11,7 +11,7 @@ import junit.framework.TestCase;
 import org.junit.Test;
 
 import com.ivan.nikolov.telnet.server.arguments.Argument;
-import com.ivan.nikolov.telnet.server.exceptions.InvalidParametersException;
+import com.ivan.nikolov.telnet.server.exceptions.InvalidArgumentsException;
 
 /**
  * @author Ivan Nikolov
@@ -20,7 +20,7 @@ import com.ivan.nikolov.telnet.server.exceptions.InvalidParametersException;
 public class StartServerTestCase extends TestCase {
 
 	@Test
-	public void testCreateValidServer() throws InvalidParametersException {
+	public void testCreateValidServer() throws InvalidArgumentsException {
 		String[] args = new String[2];
 		args[0] = "-port";
 		args[1] = "100";
@@ -35,7 +35,7 @@ public class StartServerTestCase extends TestCase {
 	}
 
 	@Test
-	public void testCreateHelpServer() throws InvalidParametersException {
+	public void testCreateHelpServer() throws InvalidArgumentsException {
 		String[] args = new String[6];
 		args[0] = "?";
 		StartServer s = new StartServer(args);
@@ -53,7 +53,7 @@ public class StartServerTestCase extends TestCase {
 		try {
 			new StartServer(args);
 			Assert.fail("Exception was not thrown.");
-		} catch (InvalidParametersException e) {
+		} catch (InvalidArgumentsException e) {
 			Assert.assertTrue("The expected exception was thrown.", true);
 		}
 	}

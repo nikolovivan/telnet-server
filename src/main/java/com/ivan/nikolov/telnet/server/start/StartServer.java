@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import com.ivan.nikolov.telnet.server.Server;
 import com.ivan.nikolov.telnet.server.arguments.Argument;
-import com.ivan.nikolov.telnet.server.exceptions.InvalidParametersException;
+import com.ivan.nikolov.telnet.server.exceptions.InvalidArgumentsException;
 
 /**
  * @author Ivan Nikolov
@@ -29,9 +29,9 @@ public class StartServer {
 	 * server should be started on.
 	 * 
 	 * @param args
-	 * @throws InvalidParametersException
+	 * @throws InvalidArgumentsException
 	 */
-	public StartServer(final String[] args) throws InvalidParametersException {
+	public StartServer(final String[] args) throws InvalidArgumentsException {
 		this.startArguments = this.getKnownArguments(args);
 		if (!this.startArguments.containsKey(Argument.HELP)) {
 			this.validateArguments(args);
@@ -68,7 +68,7 @@ public class StartServer {
 				startServer.showUsage();
 				System.exit(0);
 			}
-		} catch (InvalidParametersException e) {
+		} catch (InvalidArgumentsException e) {
 			StartServer.logger.error("Error parsing the start server arguments: ", e);
 			System.exit(-1);
 		}
@@ -100,13 +100,13 @@ public class StartServer {
 	 * 
 	 * @param args
 	 *            The arguments array.
-	 * @throws InvalidParametersException
+	 * @throws InvalidArgumentsException
 	 */
-	private void validateArguments(final String[] args) throws InvalidParametersException {
+	private void validateArguments(final String[] args) throws InvalidArgumentsException {
 		if (!this.getStartArguments().containsKey(Argument.PORT) || this.getStartArguments().get(Argument.PORT) > args.length - 2) {
-			throw new InvalidParametersException("You need to specify a port argument!");
+			throw new InvalidArgumentsException("You need to specify a port argument!");
 		} else if (this.getStartArguments().size() * 2 != args.length) {
-			throw new InvalidParametersException("Unexpected input!");
+			throw new InvalidArgumentsException("Unexpected input!");
 		}
 	}
 
@@ -137,17 +137,17 @@ public class StartServer {
 	 * 
 	 * @return The number of the port or stops the execution if the port is not
 	 *         a number.
-	 * @throws InvalidParametersException
+	 * @throws InvalidArgumentsException
 	 */
-	private int extractPortNumber(final String[] args, final Map<Argument, Integer> params) throws InvalidParametersException {
+	private int extractPortNumber(final String[] args, final Map<Argument, Integer> params) throws InvalidArgumentsException {
 		int result = 0;
 		try {
 			result = Integer.valueOf(args[params.get(Argument.PORT) + 1]);
 			if (result <= 0) {
-				throw new InvalidParametersException("The port number must be a positive number!");
+				throw new InvalidArgumentsException("The port number must be a positive number!");
 			}
 		} catch (NumberFormatException e) {
-			throw new InvalidParametersException("Invalid number for a port...", e);
+			throw new InvalidArgumentsException("Invalid number for a port...", e);
 		}
 		return result;
 	}
