@@ -15,8 +15,6 @@ import com.ivan.nikolov.telnet.server.exceptions.UnknownCommandException;
  */
 public class CommandFactory {
 
-	public static final String PWD = "pwd";
-
 	/**
 	 * Gets a command from the user input.
 	 * 
@@ -32,8 +30,10 @@ public class CommandFactory {
 		}
 		AbstractCommand result = null;
 		String commandName = CommandFactory.getCommandName(command);
-		if (commandName.equalsIgnoreCase(CommandFactory.PWD)) {
+		if (commandName.equalsIgnoreCase(Commands.PWD.getName())) {
 			result = new PwdCommand(command);
+		} else if (commandName.equalsIgnoreCase(Commands.LS.getName())) {
+			result = new LsCommand(command);
 		} else {
 			throw new UnknownCommandException(command);
 		}

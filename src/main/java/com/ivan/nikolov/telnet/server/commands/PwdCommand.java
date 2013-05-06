@@ -24,7 +24,7 @@ public class PwdCommand extends AbstractCommand {
 	 * @throws InvalidParametersException
 	 */
 	public PwdCommand(final String command) throws InvalidParametersException {
-		super(CommandFactory.PWD, command);
+		super(Commands.PWD, command);
 	}
 
 	/*

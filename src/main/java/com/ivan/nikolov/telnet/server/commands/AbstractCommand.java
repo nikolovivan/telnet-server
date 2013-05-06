@@ -18,20 +18,20 @@ import com.ivan.nikolov.telnet.server.exceptions.InvalidParametersException;
  */
 public abstract class AbstractCommand {
 
-	protected final String commandName;
+	protected final Commands command;
 	protected List<String> parameters = new ArrayList<String>();
 
 	/**
 	 * Creates a command with its name and number of parameters.
 	 * 
-	 * @param commandName
-	 *            The command name.
+	 * @param command
+	 *            The command object.
 	 * @param commandString
 	 *            The command string that the user entered.
 	 * @throws InvalidParametersException
 	 */
-	public AbstractCommand(final String commandName, final String commandString) throws InvalidParametersException {
-		this.commandName = commandName;
+	public AbstractCommand(final Commands command, final String commandString) throws InvalidParametersException {
+		this.command = command;
 		this.parse(commandString);
 		this.validateParams(this.parameters);
 	}
@@ -40,7 +40,7 @@ public abstract class AbstractCommand {
 	 * @return the command name.
 	 */
 	public String getCommandName() {
-		return this.commandName;
+		return this.command.getName();
 	}
 
 	/**
