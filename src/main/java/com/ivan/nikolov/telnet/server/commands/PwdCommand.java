@@ -5,6 +5,7 @@ package com.ivan.nikolov.telnet.server.commands;
 
 import java.util.List;
 
+import com.ivan.nikolov.telnet.server.context.Context;
 import com.ivan.nikolov.telnet.server.exceptions.InvalidParametersException;
 
 /**
@@ -32,9 +33,10 @@ public class PwdCommand extends AbstractCommand {
 	 * @see com.ivan.nikolov.telnet.server.commands.AbstractCommand#usage()
 	 */
 	@Override
-	public void usage() {
-		System.out.println("pwd usage: pwd");
-		System.out.println("result: the working directory");
+	protected String usage() {
+		StringBuilder builder = new StringBuilder("# pwd usage: pwd");
+		builder.append("\n# result: the working directory");
+		return builder.toString();
 	}
 
 	/*
@@ -47,19 +49,21 @@ public class PwdCommand extends AbstractCommand {
 	@Override
 	protected void validateParams(final List<String> parameters) throws InvalidParametersException {
 		if (parameters.size() > 0) {
-			throw new InvalidParametersException("The pwd command should not have any parameters!");
+			throw new InvalidParametersException(String.format("%s\n%s", "# The pwd command should not have any parameters!", this.usage()));
 		}
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.ivan.nikolov.telnet.server.commands.AbstractCommand#execute()
+	 * @see
+	 * com.ivan.nikolov.telnet.server.commands.AbstractCommand#execute(com.ivan
+	 * .nikolov.telnet.server.context.Context)
 	 */
 	@Override
-	protected String execute() {
-		// TODO Auto-generated method stub
-		return null;
+	public String execute(final Context context) {
+		// as simple as that.
+		return context.getPath();
 	}
 
 }

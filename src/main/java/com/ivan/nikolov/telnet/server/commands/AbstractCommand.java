@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import com.ivan.nikolov.telnet.server.context.Context;
 import com.ivan.nikolov.telnet.server.exceptions.InvalidParametersException;
 
 /**
@@ -67,9 +68,9 @@ public abstract class AbstractCommand {
 	}
 
 	/**
-	 * Prints info about how the command should be used.
+	 * Gets info about how the command should be used.
 	 */
-	public abstract void usage();
+	protected abstract String usage();
 
 	/**
 	 * Validates the command parameters.
@@ -82,6 +83,9 @@ public abstract class AbstractCommand {
 	/**
 	 * Executes the command and returns the result as a string that can be
 	 * displayed.
+	 * 
+	 * @param context
+	 *            The current context of the server.
 	 */
-	protected abstract String execute();
+	public abstract String execute(Context context);
 }

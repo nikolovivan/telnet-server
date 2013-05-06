@@ -13,6 +13,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Strings;
+import com.ivan.nikolov.telnet.server.commands.AbstractCommand;
+import com.ivan.nikolov.telnet.server.commands.CommandFactory;
+import com.ivan.nikolov.telnet.server.context.Context;
+import com.ivan.nikolov.telnet.server.exceptions.InvalidParametersException;
+import com.ivan.nikolov.telnet.server.exceptions.UnknownCommandException;
 
 /**
  * Represents a thread that communicates with a single client.
@@ -24,6 +29,7 @@ public class ServerThread extends Thread {
 
 	private final Logger logger = LoggerFactory.getLogger(ServerThread.class);
 	private final Socket socket;
+	private final Context context;
 
 	/**
 	 * Creates a server thread with the given socket.
@@ -32,6 +38,15 @@ public class ServerThread extends Thread {
 	 */
 	public ServerThread(final Socket socket) {
 		this.socket = socket;
+		this.context = new Context();
+		this.initialize();
+	}
+
+	/**
+	 * Initializes the thread with a context, etc.
+	 */
+	private void initialize() {
+		this.context.setPath(System.getProperty("user.dir"));
 	}
 
 	/**
@@ -65,7 +80,18 @@ public class ServerThread extends Thread {
 			String line;
 			while ((line = in.readLine()) != null) {
 				if (!Strings.isNullOrEmpty(line)) {
-					out.println("Server: " + line);
+					String commandResult = null;
+					AbstractCommand command = null;
+					try {
+						command = CommandFactory.getCommand(line);
+						commandResult = command.execute(this.context);
+					} catch (InvalidParametersException e) {
+						commandResult = e.getMessage();
+					} catch (UnknownCommandException e) {
+						commandResult = "Unknown command...";
+					}
+
+					out.println(commandResult);
 					if (line.equalsIgnoreCase("quit")) {
 						break;
 					}
