@@ -16,7 +16,6 @@ import com.google.common.base.Strings;
 import com.ivan.nikolov.telnet.server.commands.AbstractCommand;
 import com.ivan.nikolov.telnet.server.commands.CommandFactory;
 import com.ivan.nikolov.telnet.server.context.Context;
-import com.ivan.nikolov.telnet.server.exceptions.InvalidParametersException;
 import com.ivan.nikolov.telnet.server.exceptions.UnknownCommandException;
 
 /**
@@ -85,10 +84,11 @@ public class ServerThread extends Thread {
 					try {
 						command = CommandFactory.getCommand(line);
 						commandResult = command.execute(this.context);
-					} catch (InvalidParametersException e) {
-						commandResult = e.getMessage();
 					} catch (UnknownCommandException e) {
 						commandResult = "Unknown command...";
+					} catch (Exception e) {
+						// handles invalid parameters and unsuccessful command
+						commandResult = e.getMessage();
 					}
 
 					out.println(commandResult);

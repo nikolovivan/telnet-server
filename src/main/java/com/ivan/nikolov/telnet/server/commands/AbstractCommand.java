@@ -9,6 +9,7 @@ import java.util.StringTokenizer;
 
 import com.ivan.nikolov.telnet.server.context.Context;
 import com.ivan.nikolov.telnet.server.exceptions.InvalidParametersException;
+import com.ivan.nikolov.telnet.server.exceptions.UnsuccessfulCommandException;
 
 /**
  * Abstract class for the commands that we will supports.
@@ -92,6 +93,9 @@ public abstract class AbstractCommand {
 	 * 
 	 * @param context
 	 *            The current context of the server.
+	 * 
+	 * @throws UnsuccessfulCommandException
+	 *             Whenever the command is not successful for some reason.
 	 */
-	public abstract String execute(Context context);
+	public abstract String execute(Context context) throws UnsuccessfulCommandException;
 }

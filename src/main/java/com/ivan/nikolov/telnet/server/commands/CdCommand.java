@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.ivan.nikolov.telnet.server.context.Context;
 import com.ivan.nikolov.telnet.server.exceptions.InvalidParametersException;
+import com.ivan.nikolov.telnet.server.exceptions.UnsuccessfulCommandException;
 
 /**
  * Represents the cd command...
@@ -63,7 +64,7 @@ public class CdCommand extends AbstractCommand {
 	 * .nikolov.telnet.server.context.Context)
 	 */
 	@Override
-	public String execute(final Context context) {
+	public String execute(final Context context) throws UnsuccessfulCommandException {
 		String workingFolder = context.getPath();
 		String path = this.parameters.get(0);
 
@@ -75,16 +76,16 @@ public class CdCommand extends AbstractCommand {
 		}
 
 		if (!dir.exists()) {
-			return "The given directory does not exist.";
+			throw new UnsuccessfulCommandException("The given directory does not exist.");
 		} else if (!dir.isDirectory()) {
-			return "Not a directory!";
+			throw new UnsuccessfulCommandException("Not a directory!");
 		} else {
 			try {
 				path = dir.getCanonicalPath();
 				context.setPath(path);
 				return path;
 			} catch (IOException e) {
-				return "Error getting canonical path. Directory not changed.";
+				throw new UnsuccessfulCommandException("Error getting canonical path. Directory not changed.", e);
 			}
 		}
 	}

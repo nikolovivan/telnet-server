@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.ivan.nikolov.telnet.server.context.Context;
 import com.ivan.nikolov.telnet.server.exceptions.InvalidParametersException;
+import com.ivan.nikolov.telnet.server.exceptions.UnsuccessfulCommandException;
 
 /**
  * Represents the ls command.
@@ -63,13 +64,13 @@ public class LsCommand extends AbstractCommand {
 	 * .nikolov.telnet.server.context.Context)
 	 */
 	@Override
-	public String execute(final Context context) {
+	public String execute(final Context context) throws UnsuccessfulCommandException {
 		String workingFolder = this.parameters.size() > 0 ? this.parameters.get(0) : context.getPath();
 		File dir = new File(workingFolder);
 		if (!dir.exists()) {
-			return "The given directory does not exist.";
+			throw new UnsuccessfulCommandException("The given directory does not exist.");
 		} else if (!dir.isDirectory()) {
-			return "Not a directory!";
+			throw new UnsuccessfulCommandException("Not a directory!");
 		}
 		StringBuilder result = new StringBuilder();
 		String[] contents = dir.list();
