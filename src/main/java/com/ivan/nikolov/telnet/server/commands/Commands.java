@@ -12,7 +12,8 @@ package com.ivan.nikolov.telnet.server.commands;
 public enum Commands {
 	PWD("pwd"),
 	LS("ls"),
-	CD("cd");
+	CD("cd"),
+	MKDIR("mkdir");
 
 	private String name;
 

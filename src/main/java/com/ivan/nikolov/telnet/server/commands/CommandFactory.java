@@ -36,6 +36,8 @@ public class CommandFactory {
 			result = new LsCommand(command);
 		} else if (commandName.equalsIgnoreCase(Commands.CD.getName())) {
 			result = new CdCommand(command);
+		} else if (commandName.equalsIgnoreCase(Commands.MKDIR.getName())) {
+			result = new MkdirCommand(command);
 		} else {
 			throw new UnknownCommandException(command);
 		}
