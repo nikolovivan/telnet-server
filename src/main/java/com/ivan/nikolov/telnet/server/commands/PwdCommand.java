@@ -35,7 +35,8 @@ public class PwdCommand extends AbstractCommand {
 	@Override
 	protected String usage() {
 		StringBuilder builder = new StringBuilder("# pwd usage: pwd");
-		builder.append("\n# result: the working directory");
+		builder.append(AbstractCommand.NEW_LINE);
+		builder.append("# result: the working directory");
 		return builder.toString();
 	}
 
@@ -49,7 +50,8 @@ public class PwdCommand extends AbstractCommand {
 	@Override
 	protected void validateParams(final List<String> parameters) throws InvalidParametersException {
 		if (parameters.size() > 0) {
-			throw new InvalidParametersException(String.format("%s\n%s", "# The pwd command should not have any parameters!", this.usage()));
+			throw new InvalidParametersException(String.format("%s%s", "# The pwd command should not have any parameters!", AbstractCommand.NEW_LINE,
+					this.usage()));
 		}
 	}
 

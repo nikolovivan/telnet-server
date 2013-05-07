@@ -22,6 +22,8 @@ public abstract class AbstractCommand {
 	protected final Commands command;
 	protected List<String> parameters = new ArrayList<String>();
 
+	protected static final String NEW_LINE = System.getProperty("line.separator");
+
 	/**
 	 * Creates a command with its name and number of parameters.
 	 * 

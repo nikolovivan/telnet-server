@@ -36,7 +36,8 @@ public class QuitCommand extends AbstractCommand {
 	@Override
 	protected String usage() {
 		StringBuilder builder = new StringBuilder("# quit usage: quit");
-		builder.append("\n# result: closing the connection with the server");
+		builder.append(AbstractCommand.NEW_LINE);
+		builder.append("# result: closing the connection with the server");
 		return builder.toString();
 	}
 
@@ -50,7 +51,8 @@ public class QuitCommand extends AbstractCommand {
 	@Override
 	protected void validateParams(final List<String> parameters) throws InvalidParametersException {
 		if (parameters.size() > 0) {
-			throw new InvalidParametersException(String.format("%s\n%s", "# The quit command should not have any parameters!", this.usage()));
+			throw new InvalidParametersException(String.format("%s%s%s", "# The quit command should not have any parameters!", AbstractCommand.NEW_LINE,
+					this.usage()));
 		}
 	}
 

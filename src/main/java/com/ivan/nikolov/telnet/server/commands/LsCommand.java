@@ -38,7 +38,8 @@ public class LsCommand extends AbstractCommand {
 	@Override
 	protected String usage() {
 		StringBuilder builder = new StringBuilder("# ls usage: ls [path]");
-		builder.append("\n# result: the files and folders in the current/given directory");
+		builder.append(AbstractCommand.NEW_LINE);
+		builder.append("# result: the files and folders in the current/given directory");
 		return builder.toString();
 	}
 
@@ -52,7 +53,7 @@ public class LsCommand extends AbstractCommand {
 	@Override
 	protected void validateParams(final List<String> parameters) throws InvalidParametersException {
 		if (parameters.size() > 1) {
-			throw new InvalidParametersException(String.format("%s\n%s", "# Wrong usage of the ls command!", this.usage()));
+			throw new InvalidParametersException(String.format("%s%s%s", "# Wrong usage of the ls command!", AbstractCommand.NEW_LINE, this.usage()));
 		}
 	}
 
@@ -77,7 +78,7 @@ public class LsCommand extends AbstractCommand {
 		// show them sorted
 		Arrays.sort(contents);
 		for (String name : contents) {
-			result.append(name).append("\n");
+			result.append(name).append(AbstractCommand.NEW_LINE);
 		}
 		return result.toString();
 	}

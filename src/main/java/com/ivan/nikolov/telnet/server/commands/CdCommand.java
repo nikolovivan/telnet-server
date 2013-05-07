@@ -38,7 +38,8 @@ public class CdCommand extends AbstractCommand {
 	@Override
 	protected String usage() {
 		StringBuilder builder = new StringBuilder("# cd usage: cd <path>");
-		builder.append("\n# result: changes the current context to the given directory (either relative or absolute)");
+		builder.append(AbstractCommand.NEW_LINE);
+		builder.append("# result: changes the current context to the given directory (either relative or absolute)");
 		return builder.toString();
 	}
 
@@ -52,7 +53,7 @@ public class CdCommand extends AbstractCommand {
 	@Override
 	protected void validateParams(final List<String> parameters) throws InvalidParametersException {
 		if (parameters.size() != 1) {
-			throw new InvalidParametersException(String.format("%s\n%s", "# Wrong usage of the cd command!", this.usage()));
+			throw new InvalidParametersException(String.format("%s%s%s", "# Wrong usage of the cd command!", AbstractCommand.NEW_LINE, this.usage()));
 		}
 	}
 

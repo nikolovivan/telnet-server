@@ -38,7 +38,8 @@ public class MkdirCommand extends AbstractCommand {
 	@Override
 	protected String usage() {
 		StringBuilder builder = new StringBuilder("# mkdir usage: mkdir <path>");
-		builder.append("\n# result: creates the directory in the <path> if it does not exist and if possible");
+		builder.append(AbstractCommand.NEW_LINE);
+		builder.append("# result: creates the directory in the <path> if it does not exist and if possible");
 		return builder.toString();
 	}
 
@@ -52,7 +53,7 @@ public class MkdirCommand extends AbstractCommand {
 	@Override
 	protected void validateParams(final List<String> parameters) throws InvalidParametersException {
 		if (parameters.size() != 1) {
-			throw new InvalidParametersException(String.format("%s\n%s", "# Wrong usage of the mkdir command!", this.usage()));
+			throw new InvalidParametersException(String.format("%s%s%s", "# Wrong usage of the mkdir command!", AbstractCommand.NEW_LINE, this.usage()));
 		}
 	}
 
