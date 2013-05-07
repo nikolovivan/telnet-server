@@ -13,7 +13,8 @@ public enum Commands {
 	PWD("pwd"),
 	LS("ls"),
 	CD("cd"),
-	MKDIR("mkdir");
+	MKDIR("mkdir"),
+	QUIT("quit");
 
 	private String name;
 

@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import com.google.common.base.Strings;
 import com.ivan.nikolov.telnet.server.commands.AbstractCommand;
 import com.ivan.nikolov.telnet.server.commands.CommandFactory;
+import com.ivan.nikolov.telnet.server.commands.QuitCommand;
 import com.ivan.nikolov.telnet.server.context.Context;
 import com.ivan.nikolov.telnet.server.exceptions.UnknownCommandException;
 
@@ -92,7 +93,7 @@ public class ServerThread extends Thread {
 					}
 
 					out.println(commandResult);
-					if (line.equalsIgnoreCase("quit")) {
+					if (command instanceof QuitCommand) {
 						break;
 					}
 				}

@@ -5,6 +5,7 @@ package com.ivan.nikolov.telnet.server;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.net.SocketException;
 
 /**
  * Represents the server itself.
@@ -35,8 +36,13 @@ public class Server {
 	 * @throws IOException
 	 */
 	public void start() throws IOException {
-		while (this.isListening) {
-			new ServerThread(this.socket.accept()).start();
+		// easily extendable to allow interruption, restart, etc.
+		try {
+			while (this.isListening) {
+				new ServerThread(this.socket.accept()).start();
+			}
+		} catch (SocketException e) {
+			// thrown when close on the socket is called. Handle gracefully.
 		}
 	}
 

@@ -6,6 +6,7 @@ package com.ivan.nikolov.telnet.server.start;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -82,17 +83,54 @@ public class StartServer {
 			StartServer.logger.error("Could not create the server: ", e);
 			System.exit(-1);
 		}
+		startServer.startAndRunServer(server);
+	}
 
-		// start the server.
+	/**
+	 * Starts and runs the server on its own thread. Then waits for interrupt or
+	 * user input.
+	 * 
+	 * @param server
+	 *            The server instance.
+	 */
+	private void startAndRunServer(final Server server) {
+		// run on a different thread to be able to easily stop the server
+		Thread serverThread = new Thread() {
+
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see java.lang.Thread#run()
+			 */
+			@Override
+			public void run() {
+				try {
+					server.start();
+				} catch (IOException e) {
+					StartServer.logger.error("Problem running the server: ", e);
+				}
+			}
+		};
 		StartServer.logger.info("Starting the server...");
-		try {
-			server.start();
-			server.join();
-		} catch (IOException e) {
-			StartServer.logger.error("Problem with the server: ", e);
-			System.exit(-1);
+		serverThread.start();
+
+		// wait for the user to stop the server
+		System.out.println("Use 'stop' to stop the server: ");
+		Scanner scanner = new Scanner(System.in);
+		String input = "";
+		while (!input.equalsIgnoreCase("stop")) {
+			input = scanner.nextLine();
 		}
 
+		// stop listening...
+		server.setListening(false);
+		try {
+			StartServer.logger.info("Stopping the server...");
+			server.join();
+		} catch (IOException e) {
+			StartServer.logger.error("Problem stopping the server: ", e);
+			System.exit(-1);
+		}
 	}
 
 	/**
@@ -143,6 +181,7 @@ public class StartServer {
 		int result = 0;
 		try {
 			result = Integer.valueOf(args[params.get(Argument.PORT) + 1]);
+			// we don't want random ports either
 			if (result <= 0) {
 				throw new InvalidArgumentsException("The port number must be a positive number!");
 			}

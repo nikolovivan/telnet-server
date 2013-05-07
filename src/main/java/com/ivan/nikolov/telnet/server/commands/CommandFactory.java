@@ -38,6 +38,8 @@ public class CommandFactory {
 			result = new CdCommand(command);
 		} else if (commandName.equalsIgnoreCase(Commands.MKDIR.getName())) {
 			result = new MkdirCommand(command);
+		} else if (commandName.equalsIgnoreCase(Commands.QUIT.getName())) {
+			result = new QuitCommand(command);
 		} else {
 			throw new UnknownCommandException(command);
 		}
