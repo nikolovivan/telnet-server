@@ -34,6 +34,8 @@ public class CommandFactory {
 			result = new PwdCommand(command);
 		} else if (commandName.equalsIgnoreCase(Commands.LS.getName())) {
 			result = new LsCommand(command);
+		} else if (commandName.equalsIgnoreCase(Commands.CD.getName())) {
+			result = new CdCommand(command);
 		} else {
 			throw new UnknownCommandException(command);
 		}

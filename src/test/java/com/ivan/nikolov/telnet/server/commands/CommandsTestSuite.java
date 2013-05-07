@@ -16,7 +16,7 @@ import org.junit.runners.Suite.SuiteClasses;
  * 
  */
 @RunWith(Suite.class)
-@SuiteClasses({})
+@SuiteClasses({ PwdCommandTestCase.class, LsCommandTestCase.class })
 public class CommandsTestSuite {
 
 	@BeforeClass

@@ -55,13 +55,19 @@ public abstract class AbstractCommand {
 	 * 
 	 * @param command
 	 *            The issued command.
+	 * @throws InvalidParametersException
 	 */
-	protected void parse(final String command) {
+	protected void parse(final String command) throws InvalidParametersException {
 		StringTokenizer tokenizer = new StringTokenizer(command);
-		// skip the command name.
+		// skip the command name, but check if valid.
 		if (tokenizer.hasMoreTokens()) {
-			tokenizer.nextToken();
+			String commandName = tokenizer.nextToken();
+			if (!commandName.equalsIgnoreCase(this.command.getName())) {
+				throw new InvalidParametersException("Unexpected command name. Should be: " + this.command.getName());
+			}
 		}
+
+		// get all the parameters
 		while (tokenizer.hasMoreTokens()) {
 			this.parameters.add(tokenizer.nextToken());
 		}

@@ -119,8 +119,13 @@ public class ServerThread extends Thread {
 	 *            The writer to the socket output stream.
 	 */
 	private void printGreetingMessage(final PrintWriter out) {
-		out.println("================================================================================");
-		out.println("Hello, client! Start typing messages and I will repeat them. Use 'quit' to exit.");
-		out.println("================================================================================");
+		out.println("====================================================================");
+		out.println("A simple server that executes the following commands:");
+		out.println("* pwd - shows the current working directory.");
+		out.println("* ls [folder path] - lists the contents of the current/given folder.");
+		out.println("* cd <folder> - navigates to a folder.");
+		out.println("* mkdir <folder name> - creates a folder.");
+		out.println("* quit - exits the program.");
+		out.println("====================================================================");
 	}
 }
