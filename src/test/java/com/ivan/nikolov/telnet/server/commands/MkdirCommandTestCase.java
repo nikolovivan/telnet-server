@@ -3,6 +3,8 @@
  */
 package com.ivan.nikolov.telnet.server.commands;
 
+import java.io.File;
+
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
@@ -62,5 +64,9 @@ public class MkdirCommandTestCase extends TestCase {
 		Assert.assertNotNull(result);
 		Assert.assertFalse(result.isEmpty());
 		Assert.assertEquals("Created!", result);
+
+		// cleanup
+		File dir = new File("src/test/resources/test-make-dir");
+		dir.delete();
 	}
 }
